@@ -1,3 +1,5 @@
 #ignore input and output
+hard/*
+hard_converted/*
 matrices/*
 *.txt
