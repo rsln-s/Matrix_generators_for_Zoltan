@@ -1,10 +1,9 @@
 %converts .graph format: n_vertices n_edges, [list of neighbours for node #line_number]
-
-files = dir('test/*.txt');
+files = dir('hard/*.txt');
 numfiles = numel(files);
-for k=1:numfiles
+parfor k=1:numfiles
     file_obj = files(k);
-    filename = strcat('test/', file_obj.name);
+    filename = strcat('hard/', file_obj.name);
     file = fopen(filename);
     
     curr_node_num = 0;
@@ -42,7 +41,7 @@ for k=1:numfiles
         end
     end
     
-    outputname = strcat('zoltan_', file_obj.name);
+    outputname = strcat('hard_converted/zoltan_', file_obj.name);
     output = fopen(outputname,'w+');
     
     [rows, columns] = size(mat);
