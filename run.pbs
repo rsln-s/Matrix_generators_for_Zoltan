@@ -1,9 +1,9 @@
 #!/bin/bash
-#PBS -N poten_hard_graphs_converter 
-#PBS -l select=1:ncpus=2:mem=32gb,walltime=72:00:00
+#PBS -N poten_hard_graphs_converter
+#PBS -l select=1:ncpus=16:mem=32gb,walltime=72:00:00
 
 module add matlab/2016a
 
-cd /home/rshaydu/MATLAB
+cd /home/rshaydu/Matrix_generators_for_Zoltan
 
 matlab -nodesktop -nosplash -r poten_hard_graphs_converter 
