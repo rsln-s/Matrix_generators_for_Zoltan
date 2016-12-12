@@ -40,24 +40,7 @@ parfor k=1:numfiles
             curr_edge_num = curr_edge_num + 1;
         end
     end
-    
-    outputname = strcat('hard_converted/zoltan_', file_obj.name);
-    output = fopen(outputname,'w+');
-    
-    [rows, columns] = size(mat);
-    fprintf(output, '##Number of vertices\n%d\n\n', columns);
-    fprintf(output, '##list vertices\n');
-    for i = 1:columns
-        fprintf(output,'%d\n', i);
-    end
-    fprintf(output,'\n');
-    fprintf(output, '##number of hyperedges\n%d\n\n', rows);
-    fprintf(output, '##number of nonzero els\n\n%d\n\n', nnz(mat));
-    fprintf(output, '##hyperedge adj\n\n');
-    for row = 1:rows
-       fprintf(output, '%d ', row);
-       fprintf(output, '%d ', nnz(mat(row,:)));
-       fprintf(output, '%d ', find(mat(row, :)));
-       fprintf(output, '\n');
-    end
+    size(mat)
+    outputname = strcat('hard_converted/', file_obj.name, '.mtx');    
+    mmwrite(outputname, mat)
 end

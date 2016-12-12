@@ -1,5 +1,5 @@
-vnum = 400;
-enum = 401;
+vnum = 4000;
+enum = 4001;
 
 A_left = randi([0 1], ((enum-1)/2), (vnum/2));
 B_right = randi([0,1], ((enum-1)/2), (vnum/2));
@@ -13,15 +13,18 @@ mat = vertcat(A, row, B);
 
 output = fopen('trivial_two_parts.txt','w+');
 [rows, columns] = size(mat);
-fprintf(output, '##Number of vertices\n%d\n\n', columns);
-fprintf(output, '##list vertices\n');
+%fprintf(output, '##Number of vertices\n');
+fprintf(output, '%d\n\n', columns);
+%fprintf(output, '##list vertices\n');
 for i = 1:columns
     fprintf(output,'%d\n', i);
 end
 fprintf(output,'\n');
-fprintf(output, '##number of hyperedges\n%d\n\n', rows);
-fprintf(output, '##number of nonzero els\n\n%d\n\n', nnz(mat));
-fprintf(output, '##hyperedge adj\n\n');
+%fprintf(output, '##number of hyperedges\n%d');
+fprintf(output, '%d\n\n', rows);
+%fprintf(output, '##number of nonzero els\n\n');
+fprintf(output, '%d\n\n', nnz(mat));
+%fprintf(output, '##hyperedge adj\n\n');
 for row = 1:rows
     fprintf(output, '%d ', row);
     fprintf(output, '%d ', nnz(mat(row,:)));
