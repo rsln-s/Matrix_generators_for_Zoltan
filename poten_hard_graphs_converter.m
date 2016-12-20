@@ -1,13 +1,13 @@
-%converts .graph format: n_vertices n_edges, [list of neighbours for node #line_number]
-files = dir('hard/*.txt');
+files = dir('test/*.txt');
 numfiles = numel(files);
-parfor k=1:numfiles
+for k=1:numfiles
     file_obj = files(k);
-    filename = strcat('hard/', file_obj.name);
+    filename = strcat('test/', file_obj.name);
     file = fopen(filename);
     
-    curr_node_num = 0;
+    
     curr_edge_num = 1;
+    curr_line_num = 1;
     
     %first line is 'nodes edges'
 
@@ -19,12 +19,8 @@ parfor k=1:numfiles
     
     while ~feof(file)
         tl = fgetl(file);
-        curr_node_num = curr_node_num + 1;
         tlarr = str2num(tl);
-        if numel(tlarr) == 0
-            continue
-        end
-        [row1,col1] = find(mat(:,curr_node_num));
+        [row1,col1] = find(mat(:,curr_line_num));
         for i=1:numel(tlarr)
             
             % check if edge already exists
@@ -35,12 +31,22 @@ parfor k=1:numfiles
             end
             
             % if not, create
-            mat(curr_edge_num, curr_node_num) = 1;
+            mat(curr_edge_num, curr_line_num) = 1;
             mat(curr_edge_num, tlarr(i)) = 1;
             curr_edge_num = curr_edge_num + 1;
         end
+        curr_line_num = curr_line_num + 1;
     end
-    size(mat)
-    outputname = strcat('hard_converted/', file_obj.name, '.mtx');    
-    mmwrite(outputname, mat)
+    
+    outputname = strcat('zoltan_', file_obj.name);
+    output = fopen(outputname,'w+');
+    
+    [rows, columns] = size(mat);
+    fprintf(output, '%d %d %d\n', rows, columns, nnz(mat));
+    [row,col,val] = find(mat);
+    for i=1:numel(val)
+       fprintf(output, '%d %d %f', col(i), row(i), val(i));
+       fprintf(output, '\n');
+    end
+    fclose(output);
 end
