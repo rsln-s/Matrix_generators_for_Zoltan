@@ -1,8 +1,9 @@
-files = dir('test/*.txt');
+files = dir('hard/*.txt');
 numfiles = numel(files);
-for k=1:numfiles
+
+parfor k=1:numfiles
     file_obj = files(k);
-    filename = strcat('test/', file_obj.name);
+    filename = strcat('hard/', file_obj.name);
     file = fopen(filename);
     
     
@@ -38,14 +39,15 @@ for k=1:numfiles
         curr_line_num = curr_line_num + 1;
     end
     
-    outputname = strcat('zoltan_', file_obj.name);
+    outputname = strcat('hard_converted/zoltan_', file_obj.name);
     output = fopen(outputname,'w+');
     
     [rows, columns] = size(mat);
+    fprintf(output, '%%MatrixMarket matrix coordinate real general');
     fprintf(output, '%d %d %d\n', rows, columns, nnz(mat));
     [row,col,val] = find(mat);
     for i=1:numel(val)
-       fprintf(output, '%d %d %f', col(i), row(i), val(i));
+       fprintf(output, '%d %d %f', row(i), col(i), val(i));
        fprintf(output, '\n');
     end
     fclose(output);
