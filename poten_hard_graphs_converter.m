@@ -39,7 +39,7 @@ parfor k=1:numfiles
         curr_line_num = curr_line_num + 1;
     end
     
-    outputname = strcat('hard_converted/zoltan_', file_obj.name);
+    outputname = strcat('hard_converted/', file_obj.name);
     output = fopen(outputname,'w+');
     
     [rows, columns] = size(mat);
