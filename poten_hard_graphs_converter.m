@@ -43,7 +43,8 @@ parfor k=1:numfiles
     output = fopen(outputname,'w+');
     
     [rows, columns] = size(mat);
-    fprintf(output, '%%MatrixMarket matrix coordinate real general\n');
+    fprintf(output, '%c%c', char(37), char(37));
+    fprintf(output, 'MatrixMarket matrix coordinate real general\n');
     fprintf(output, '%d %d %d\n', rows, columns, nnz(mat));
     [row,col,val] = find(mat);
     for i=1:numel(val)
