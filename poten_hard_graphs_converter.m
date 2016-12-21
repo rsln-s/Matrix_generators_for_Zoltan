@@ -39,11 +39,11 @@ parfor k=1:numfiles
         curr_line_num = curr_line_num + 1;
     end
     
-    outputname = strcat('hard_converted/', file_obj.name);
+    outputname = strcat('hard_converted/', file_obj.name, '.mtx');
     output = fopen(outputname,'w+');
     
     [rows, columns] = size(mat);
-    fprintf(output, '%%MatrixMarket matrix coordinate real general');
+    fprintf(output, '%%MatrixMarket matrix coordinate real general\n');
     fprintf(output, '%d %d %d\n', rows, columns, nnz(mat));
     [row,col,val] = find(mat);
     for i=1:numel(val)
