@@ -1,13 +1,14 @@
-%converts .graph format: n_vertices n_edges, [list of neighbours for node #line_number]
 files = dir('hard/*.txt');
 numfiles = numel(files);
+
 parfor k=1:numfiles
     file_obj = files(k);
     filename = strcat('hard/', file_obj.name);
     file = fopen(filename);
     
-    curr_node_num = 0;
+    
     curr_edge_num = 1;
+    curr_line_num = 1;
     
     %first line is 'nodes edges'
 
@@ -19,12 +20,8 @@ parfor k=1:numfiles
     
     while ~feof(file)
         tl = fgetl(file);
-        curr_node_num = curr_node_num + 1;
         tlarr = str2num(tl);
-        if numel(tlarr) == 0
-            continue
-        end
-        [row1,col1] = find(mat(:,curr_node_num));
+        [row1,col1] = find(mat(:,curr_line_num));
         for i=1:numel(tlarr)
             
             % check if edge already exists
@@ -35,29 +32,24 @@ parfor k=1:numfiles
             end
             
             % if not, create
-            mat(curr_edge_num, curr_node_num) = 1;
+            mat(curr_edge_num, curr_line_num) = 1;
             mat(curr_edge_num, tlarr(i)) = 1;
             curr_edge_num = curr_edge_num + 1;
         end
+        curr_line_num = curr_line_num + 1;
     end
     
-    outputname = strcat('hard_converted/zoltan_', file_obj.name);
+    outputname = strcat('hard_converted/', file_obj.name, '.mtx');
     output = fopen(outputname,'w+');
     
     [rows, columns] = size(mat);
-    fprintf(output, '##Number of vertices\n%d\n\n', columns);
-    fprintf(output, '##list vertices\n');
-    for i = 1:columns
-        fprintf(output,'%d\n', i);
-    end
-    fprintf(output,'\n');
-    fprintf(output, '##number of hyperedges\n%d\n\n', rows);
-    fprintf(output, '##number of nonzero els\n\n%d\n\n', nnz(mat));
-    fprintf(output, '##hyperedge adj\n\n');
-    for row = 1:rows
-       fprintf(output, '%d ', row);
-       fprintf(output, '%d ', nnz(mat(row,:)));
-       fprintf(output, '%d ', find(mat(row, :)));
+    fprintf(output, '%c%c', char(37), char(37));
+    fprintf(output, 'MatrixMarket matrix coordinate real general\n');
+    fprintf(output, '%d %d %d\n', rows, columns, nnz(mat));
+    [row,col,val] = find(mat);
+    for i=1:numel(val)
+       fprintf(output, '%d %d %f', row(i), col(i), val(i));
        fprintf(output, '\n');
     end
+    fclose(output);
 end
