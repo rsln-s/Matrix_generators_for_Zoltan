@@ -9,7 +9,7 @@ fclose(membershipsfile);
 
 memberships(:,3) = 1;
 
-mat = sparse(memberships(:, 2), memberships(:, 1), memberships(:, 1));
+mat = sparse(memberships(:, 2), memberships(:, 1), memberships(:, 3));
 
 output = fopen('flickr.mtx','w+');
 
