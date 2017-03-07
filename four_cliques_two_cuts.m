@@ -7,8 +7,8 @@
 % |       |
 % A4 --- A3
 
-vnum = 200; % number of vertices in a clique
-enum = 200; % number of hedges in a clique
+vnum = 1000; % number of vertices in a clique
+enum = 1000; % number of hedges in a clique
 
 A = randi([0 1], enum, vnum);
 B = zeros(enum, vnum);
@@ -33,49 +33,17 @@ row6(2, 1 + vnum*3.5) = 1;
 row6(3, 1 + vnum*2.5) = 1;
 row6(3, 1 + vnum*3.5) = 1;
 
-row7 = zeros(10, 4*vnum); % bridge between A1 and A4
+row7 = zeros(2, 4*vnum); % bridge between A1 and A4
 row7(1, vnum/2) = 1;
 row7(1, vnum*3.5) = 1;
 row7(2, 1 + vnum/2) = 1;
 row7(2, 1 + vnum*3.5) = 1;
-row7(3, 2 + vnum/2) = 1;
-row7(3, 2 + vnum*3.5) = 1;
-row7(4, 3 + vnum/2) = 1;
-row7(4, 3 + vnum*3.5) = 1;
-row7(5, 4 + vnum/2) = 1;
-row7(5, 4 + vnum*3.5) = 1;
-row7(6, 5 + vnum/2) = 1;
-row7(6, 5 + vnum*3.5) = 1;
-row7(7, 6 + vnum/2) = 1;
-row7(7, 6 + vnum*3.5) = 1;
-row7(8, 7 + vnum/2) = 1;
-row7(8, 7 + vnum*3.5) = 1;
-row7(9, 8 + vnum/2) = 1;
-row7(9, 8 + vnum*3.5) = 1;
-row7(10, 9 + vnum/2) = 1;
-row7(10, 9 + vnum*3.5) = 1;
 
-row8 = zeros(10, 4*vnum); % bridge between A2 and A3
+row8 = zeros(2, 4*vnum); % bridge between A2 and A3
 row8(1, vnum*1.5) = 1;
 row8(1, vnum*2.5) = 1;
 row8(2, 1 + vnum*1.5) = 1;
 row8(2, 1 + vnum*2.5) = 1;
-row8(3, 2 + vnum*1.5) = 1;
-row8(3, 2 + vnum*2.5) = 1;
-row8(4, 3 + vnum*1.5) = 1;
-row8(4, 3 + vnum*2.5) = 1;
-row8(5, 4 + vnum*1.5) = 1;
-row8(5, 4 + vnum*2.5) = 1;
-row8(6, 5 + vnum*1.5) = 1;
-row8(6, 5 + vnum*2.5) = 1;
-row8(7, 6 + vnum*1.5) = 1;
-row8(7, 6 + vnum*2.5) = 1;
-row8(8, 7 + vnum*1.5) = 1;
-row8(8, 7 + vnum*2.5) = 1;
-row8(9, 8 + vnum*1.5) = 1;
-row8(9, 8 + vnum*2.5) = 1;
-row8(10, 9 + vnum*1.5) = 1;
-row8(10, 9 + vnum*2.5) = 1;
 
 mat = vertcat(row1, row2, row3, row4, row5, row6, row7, row8);
 
