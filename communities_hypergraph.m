@@ -3,7 +3,7 @@
 % vertices in it
 % http://socialnetworks.mpi-sws.org/data-imc2007.html
 
-membershipsfile = fopen('communities/release-flickr-groupmemberships.txt', 'r');
+membershipsfile = fopen('communities/release-youtube-groupmemberships.txt', 'r');
 memberships = (fscanf(membershipsfile, '%d %d', [2 Inf]))';
 fclose(membershipsfile);
 
@@ -11,7 +11,10 @@ memberships(:,3) = 1;
 
 mat = sparse(memberships(:, 2), memberships(:, 1), memberships(:, 3));
 
-output = fopen('flickr.mtx','w+');
+mat( ~any(mat,2), : ) = [];  %rows
+mat( :, ~any(mat,1) ) = [];  %columns
+
+output = fopen('youtube.mtx','w+');
 
 [rows, columns] = size(mat);
 fprintf(output, '%c%c', char(37), char(37));
