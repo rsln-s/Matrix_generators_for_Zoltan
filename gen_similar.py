@@ -23,4 +23,4 @@ filename_list = filename.split('.')
 
 outname = filename_list[0] + '_x' + str(multiplier) + '.edgelist'
 
-writeGraph(R, '3elt_x30.edgelist', Format.EdgeListSpaceOne)
+writeGraph(R, outname, Format.EdgeListSpaceOne)
