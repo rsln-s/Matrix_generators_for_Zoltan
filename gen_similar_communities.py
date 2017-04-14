@@ -27,5 +27,4 @@ outname = filename_list[0] + '_x' + str(multiplier) + '_communities.txt'
 
 with open(outname, 'w+') as outfile:
     for i in plmPartition.getSubsetIds():
-        outfile.write(" ".join([str(x) for x in plmPartition.getMembers(i)]) + '\n')
-
+        outfile.writelines([str(x+1)+' '+str(i+1)+'\n' for x in plmPartition.getMembers(i)])
