@@ -30,7 +30,7 @@ for row=1:N
 end
 
 
-mat = sparse(i,j,v);
+mat = sparse(j,i,v);
 
 mat( ~any(mat,2), : ) = [];  %rows
 mat( :, ~any(mat,1) ) = [];  %columns
