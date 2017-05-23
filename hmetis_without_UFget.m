@@ -6,6 +6,9 @@ parfor k=1:numfiles
     struct = load(strcat(file_obj.folder,'/', file_obj.name));
 
     mat = struct.Problem.A;
+    
+    mat( ~any(mat,2), : ) = [];  %rows
+    mat(:, ~any(mat,1)) = []; %remove all empty columns
 
     outname = strcat('hmetis_converted/', file_obj.name, '.hmetis');
     output = fopen(outname,'w+');
