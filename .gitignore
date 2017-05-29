@@ -3,3 +3,5 @@ hard/*
 hard_converted/*
 matrices/*
 *.txt
+*.mtx
+communities/*
